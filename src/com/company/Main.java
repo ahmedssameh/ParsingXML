@@ -148,6 +148,7 @@ public class Main {
             }
         return books;
     }
+    /////////////
      static void deletefromfile(File file,String BookID) throws ParserConfigurationException, IOException, SAXException, TransformerException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -163,8 +164,8 @@ public class Main {
                 book.getParentNode().removeChild(book);
             }}
             writeXml(doc,file);
-        }
-
+        }}
+////////////////////////////
         public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException, SAXException {
         File file=new File("./books.xml");
         int flag;
