@@ -148,6 +148,22 @@ public class Main {
             }
         return books;
     }
+     static void deletefromfile(File file,String BookID) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(file);
+        NodeList nodeList = doc.getDocumentElement().getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element book = (Element) node;
+                System.out.println(book.getAttributes().getNamedItem("id"));
+            if(book.getAttributes().getNamedItem("id").getNodeValue().equals(BookID)){
+                System.out.println("done");
+                book.getParentNode().removeChild(book);
+            }}
+            writeXml(doc,file);
+        }
 
         public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException, SAXException {
         File file=new File("./books.xml");
