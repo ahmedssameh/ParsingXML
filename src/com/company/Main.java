@@ -62,39 +62,46 @@ public class Main {
         Element rootElement;
         if(flag==0){
             doc=docBuilder.newDocument();
-            rootElement = doc.createElement("book");
+            rootElement = doc.createElement("Catalog");
         doc.appendChild(rootElement);
         }else{
             doc=docBuilder.parse(file);
             rootElement = doc.getDocumentElement();
         }
         for(int i=0;i<numberOfBooks;i++){
+            System.out.println("Enter Book id");
             Bookid=in.next();
-            Element bookid = doc.createElement("id");
+            Element bookid = doc.createElement("BookId");
             // add staff to root
             rootElement.appendChild(bookid);
             // add xml attribute
             bookid.setAttribute("id", Bookid);
+            System.out.println("Enter Author");
             author= in.next();
             Element Author = doc.createElement("Author");
             Author.setTextContent(author);
             bookid.appendChild(Author);
+            System.out.println("Enter title ");
             title=in.next();
             Element Title = doc.createElement("Title");
             Title.setTextContent(title);
             bookid.appendChild(Title);
+            System.out.println("Enter genre ");
             genre=in.next();
             Element Genre = doc.createElement("Genre");
             Genre.setTextContent(genre);
             bookid.appendChild(Genre);
+            System.out.println("Enter Price");
             price=in.nextDouble();
             Element Price = doc.createElement("Price");
             Price.setTextContent("%s".formatted(price));
             bookid.appendChild(Price);
+            System.out.println("Enter date");
             date=in.next();
             Element Date = doc.createElement("Date");
             Date.setTextContent(date);
             bookid.appendChild(Date);
+            System.out.println("Enter description");
             description=in.next();
             Element Desc = doc.createElement("Description");
             Desc.setTextContent(description);
@@ -167,46 +174,52 @@ public class Main {
         }}
 ////////////////////////////
         public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException, SAXException {
-        File file=new File("./books.xml");
-        int flag;
-        if(file.length()==0){
-            flag=0;
-        }else flag=1;
+            File file = new File("./books.xml");
+            int flag;
+            if (file.length() == 0) {
+                flag = 0;
+            } else flag = 1;
 
-        Scanner in=new Scanner(System.in);
-
-        int Choice= in.nextInt();
-        List<Book> books=new ArrayList<>();
-        if(Choice==1) addFirstTime(file,flag);
-        if(Choice==2){
-            books=loadInMemory(file);
-            int choice2= in.nextInt();
-            String Title="";
-            String Author="";
-            if (choice2==1){
-                System.out.println("Enter Author Name");
-                Author= in.next();
-            }else if(choice2==2){
-                System.out.println("Enter Title Name");
-                Title= in.next();
-            }
-
-            for(Book b:books){
-                if(b.getAuthor().equals(Author) || b.getTitle().equals(Title)){
-                    System.out.println(b);
+            Scanner in = new Scanner(System.in);
+            while (true) {
+                System.out.println("1- Add Books \n" +
+                        "2- Search \n" +
+                        "3-Delete book by id \n" +
+                        "4-Turn off \n" +
+                        "Choose number");
+                int Choice = in.nextInt();
+                List<Book> books = new ArrayList<>();
+                if (Choice == 1) addFirstTime(file, flag);
+                else if (Choice == 2) {
+                    books = loadInMemory(file);
+                    System.out.println("1-Search by author \n" +
+                            "2-Search by title \n" +
+                            "make your choice");
+                    int choice2 = in.nextInt();
+                    String Title = "";
+                    String Author = "";
+                    if (choice2 == 1) {
+                        System.out.println("Enter Author Name");
+                        Author = in.next();
+                    } else if (choice2 == 2) {
+                        System.out.println("Enter Title Name");
+                        Title = in.next();
+                    }
+                    for (Book b : books) {
+                        if (b.getAuthor().equals(Author) || b.getTitle().equals(Title)) {
+                            System.out.println("We found the book ");
+                            System.out.println(b);
+                        }
+                    }
+                } else if (Choice == 3) {
+                    System.out.println("Enter book id you want to delete");
+                    String id = in.next();
+                    deletefromfile(file, id);
+                } else if (Choice==4) break;
+                else {
+                    System.out.println("Enter valid number");
                 }
+
             }
-
-
-
         }
-
-
-
-
-
-
-
-
-    }
 }
