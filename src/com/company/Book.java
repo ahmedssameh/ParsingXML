@@ -3,11 +3,11 @@ package com.company;
 
 
 public class Book {
-    String id;
+    private String id;
     private String author;
     private String title;
     private String genre;
-    private double price;
+    private String price;
     private String date;
     private String description;
 
@@ -27,7 +27,7 @@ public class Book {
                 '}';
     }
 
-    public Book(String id, String author, String title, String genre, double price, String date, String description) {
+    public Book(String id, String author, String title, String genre, String price, String date, String description) {
         this.id=id;
         this.author = author;
         this.title = title;
@@ -35,6 +35,14 @@ public class Book {
         this.price = price;
         this.date = date;
         this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getAuthor() {
@@ -61,11 +69,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
